@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: first
 
 # Controls when the workflow will run
 on:
@@ -12,7 +12,10 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
+  
+permissions:
+  contents: write
+  
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -28,9 +31,44 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         # run: env | sort
+        run: echo "Created artifact" > artifact.txt
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+          
+      - name: Upload artifact for release
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifact
+          path: artifact.txt
+          
+  auto-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifact
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          # Так как триггер идет по пушу в ветку, а не по тегу, 
+          # создадим автоматический тег на основе ID запуска (например, run-12345)
+          tag_name: "v0.0.${{ github.run_number }}"
+          name: "Release v0.0.${{ github.run_number }}"
+          body: |
+            Автоматический релиз для коммита ${{ github.sha }}.
+            Изменения: ${{ github.event.head_commit.message }}
+          draft: false
+          prerelease: false
+          # Указываем файлы, которые нужно прикрепить к релизу
+          files: |
+            artifact.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
