@@ -63,7 +63,7 @@ resource "azurerm_container_group" "aci" {
   container {
     name = var.container_name
     # ВАЖНО: передаем динамический digest (ghcr.io/hamka-123/go-web-app@sha256:...)
-    image  = data.docker_registry_image.app.name
+    image  = "${var.container_image}@${data.docker_registry_image.app.sha256_digest}"
     cpu    = "0.5"
     memory = "1.5"
 

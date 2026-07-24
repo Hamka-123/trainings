@@ -31,7 +31,7 @@ variable "container_name" {
 variable "container_image" {
   type    = string
   default = "ghcr.io/hamka-123/go-web-app:latest"
-  #default    = "ghcr.io/hamka-123/go-web-app:sha-34c9c3c@sha256:52b588e0915fe8a48ffe79440a7ed3de71da92fbe42212ce08e0211de5aac5a1"
+  #default     = "ghcr.io/hamka-123/go-web-app:sha-34c9c3c@sha256:52b588e0915fe8a48ffe79440a7ed3de71da92fbe42212ce08e0211de5aac5a1"
   description = "Полный путь к образу с тегом или digest"
 }
 
@@ -43,7 +43,7 @@ variable "container_port" {
 
 variable "ghcr_username" {
   type        = string
-  default     = "hamka-123"
+  default     = "Hamka-123"
   description = "Имя пользователя GitHub"
 }
 
