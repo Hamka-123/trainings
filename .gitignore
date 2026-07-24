@@ -1,0 +1,13 @@
+
+# Игнорируем служебную папку Terraform и провайдеры
+.terraform/
+*.tfstate
+*.tfstate.*
+
+# Игнорируем файлы с секретными переменными
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
