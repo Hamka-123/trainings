@@ -3,7 +3,8 @@ name: Build & Push to GHCR
 on:
     push:
         branches: ["main"]
-        paths: "./go-web-site/**" # Для срабатывания на пуш только в этот каталог
+        paths: 
+            - "go-web-site/**" # Для срабатывания на пуш только в этот каталог
     workflow_dispatch: # Возможность ручного запуска
 
 jobs:
