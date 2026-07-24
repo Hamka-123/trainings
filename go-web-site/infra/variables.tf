@@ -29,8 +29,9 @@ variable "container_name" {
 }
 
 variable "container_image" {
-  type        = string
-  default     = "ghcr.io/hamka-123/go-web-app:sha-34c9c3c@sha256:52b588e0915fe8a48ffe79440a7ed3de71da92fbe42212ce08e0211de5aac5a1"
+  type    = string
+  default = "ghcr.io/hamka-123/go-web-app:latest"
+  #default    = "ghcr.io/hamka-123/go-web-app:sha-34c9c3c@sha256:52b588e0915fe8a48ffe79440a7ed3de71da92fbe42212ce08e0211de5aac5a1"
   description = "Полный путь к образу с тегом или digest"
 }
 
@@ -46,7 +47,7 @@ variable "ghcr_username" {
   description = "Имя пользователя GitHub"
 }
 
-variable "ghcr_pat_token" {
+variable "ghcr_token" {
   type        = string
   sensitive   = true
   description = "GitHub Personal Access Token (PAT) с правами read:packages"
