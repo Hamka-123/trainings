@@ -54,14 +54,12 @@ jobs:
         run: |
           terraform workspace select ${{ inputs.environment }} || terraform workspace new ${{ inputs.environment }}
 
-      - name: Terraform Plan
+      - name: Terraform Execute Action
         run: |
           if [ "${{ inputs.action }}" = "destroy" ]; then
-            terraform plan -destroy -out=tfplan
+            echo "--- RUNNING DESTROY ---"
+            terraform destroy -auto-approve
           else
-            terraform plan -out=tfplan
+            echo "--- RUNNING APPLY ---"
+            terraform apply -auto-approve
           fi
-
-      - name: Terraform ${{ inputs.action }}
-        run: |
-          terraform apply -auto-approve tfplan
