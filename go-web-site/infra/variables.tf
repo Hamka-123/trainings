@@ -6,7 +6,7 @@ variable "location" {
 
 variable "resource_group_name" {
   type        = string
-  default     = "rg-go-web-app"
+  default     = "rg-go-web-app-alina"
   description = "Имя группы ресурсов"
 }
 
