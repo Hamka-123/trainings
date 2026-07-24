@@ -30,7 +30,8 @@ jobs:
               id: meta
               uses: docker/metadata-action@v6
               with:
-                  images: ghcr.io/${{ github.repository }}
+                  #images: ghcr.io/${{ github.repository }}
+                  images: ghcr.io/${{ github.repository_owner }}/go-web-app
                   tags: |
                       type=raw,value=latest
                       type=sha,format=short
