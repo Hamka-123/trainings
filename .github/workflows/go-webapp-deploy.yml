@@ -3,6 +3,7 @@ name: Build & Push to GHCR
 on:
     push:
         branches: ["main"]
+        paths: "./go-web-site/**" # Для срабатывания на пуш только в этот каталог
     workflow_dispatch: # Возможность ручного запуска
 
 jobs:
@@ -31,7 +32,7 @@ jobs:
               uses: docker/metadata-action@v6
               with:
                   #images: ghcr.io/${{ github.repository }}
-                  images: ghcr.io/${{ github.repository_owner }}/go-web-app
+                  images: ghcr.io/${{ github.repository_owner }}/go-web-app #кастомизируем название пакета
                   tags: |
                       type=raw,value=latest
                       type=sha,format=short

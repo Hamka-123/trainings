@@ -4,13 +4,21 @@ on:
   workflow_dispatch:
     inputs:
       action:
-        description: "Выберите действие (apply / destroy)"
+        description: "Select action (apply / destroy)"
         required: true
         default: "apply"
         type: choice
         options:
           - apply
           - destroy
+      environment:
+        description: "Environment / Workspace"
+        required: true
+        default: "dev"
+        type: choice
+        options:
+          - dev
+          - prod
 
 env:
   ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
@@ -29,13 +37,17 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
+        uses: hashicorp/setup-terraform@v4
 
       - name: Terraform Init
         run: terraform init
+
+      - name: Select or Create Workspace
+        run: |
+          terraform workspace select ${{ inputs.environment }} || terraform workspace new ${{ inputs.environment }}
 
       - name: Terraform Plan
         run: |
